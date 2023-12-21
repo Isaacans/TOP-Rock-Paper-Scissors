@@ -4,7 +4,6 @@
 // Game is repeated till number of rounds are reached (ties don't count)
 // Score is kept track of, including ties. 
 // Score is displayed at the end of all rounds.
-
 function game (rounds = 1) {
     let playerScore = 0;
     let computerScore = 0; 
@@ -21,10 +20,14 @@ function game (rounds = 1) {
             numberOfTies++;
         }
     }
+    let winnerIs = (playerScore > computerScore) ? 'You win! You beat the computer!' :
+        (playerScore < computerScore) ? 'You lose! Sorry, you were beat by the computer!' :
+        'Tie!! No one wins.';
     let playScoreDeclaration = 'Player scored: ' + playerScore;
     let computerScoreDeclaration = 'Computer scored: ' + computerScore;
     let numberOfTiesDeclaration = 'Number of ties: ' + numberOfTies;
-    let combinedResultsDeclaration = `${playScoreDeclaration}   
+    let combinedResultsDeclaration = `${winnerIs}
+${playScoreDeclaration}      
 ${computerScoreDeclaration}   
 ${numberOfTiesDeclaration}`;
     console.log(combinedResultsDeclaration);
@@ -143,7 +146,6 @@ function playRound (playerSelection, computerSelection) {
     return roundOutcome
 }
 
-
 // Function to return random computer choice of move
 // Generates a random decimal between 0 and 1
 // Returns the computer's move based on the random number
@@ -161,7 +163,6 @@ DECLARE function getComputerChoice
     RETURN computerChoice
 END function getComputerChoice
 */
-
 function getComputerChoice() {
     let computerChoice;
     let randomNumber = Math.random();
