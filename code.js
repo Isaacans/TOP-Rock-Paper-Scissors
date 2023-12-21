@@ -21,7 +21,7 @@ function game (rounds = 1) {
         }
     }
     let winnerIs = (playerScore > computerScore) ? 'You win! You beat the computer!' :
-        (playerScore < computerScore) ? 'You lose! Sorry, you were beat by the computer!' :
+        (playerScore < computerScore) ? 'You lose! Sorry, you were beat by the computer.' :
         'Tie!! No one wins.';
     let playScoreDeclaration = 'Player scored: ' + playerScore;
     let computerScoreDeclaration = 'Computer scored: ' + computerScore;
@@ -165,10 +165,11 @@ END function getComputerChoice
 */
 function getComputerChoice() {
     let computerChoice;
-    let randomNumber = Math.random();
-    if (randomNumber <= 0.33) {
+    let randomNumber = Math.floor(Math.random() * 3);
+    console.log("random number is: " + randomNumber);
+    if (randomNumber === 0) {
         computerChoice = "rock";
-    } else if (randomNumber > 0.33 && randomNumber <= 0.66) {
+    } else if (randomNumber  === 1) {
         computerChoice = "paper";
     } else {
         computerChoice = "scissors";
