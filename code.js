@@ -165,7 +165,7 @@ function playRound (playerSelection, computerSelection) {
         Computer score: ${scoreTally.computerWins}
         Ties: ${scoreTally.ties}`;
     if (scoreTally.playerWins >= 5 || scoreTally.computerWins >= 5) {
-        alert("You've reached 5 points! Game ends after score of 5 has been reached. Please refresh the page to play again.");
+        alert("There is a winner! Game ends after score of 5 has been reached. Please refresh the page to play again.");
         return
     }
     return roundOutcome
