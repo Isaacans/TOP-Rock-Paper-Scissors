@@ -84,7 +84,12 @@ GET parameters playerSelection and computerSelection
     return outcomeDeclaration
     ENDCASE
 */
+let scoreTally = {playerWins: 0, computerWins: 0, ties: 0};
 function playRound (playerSelection, computerSelection) {
+    if (scoreTally.playerWins >= 5 || scoreTally.computerWins >= 5) {
+        alert("Game ended after score of 5 had been reached. Please refresh the page.");
+        return
+    }
     if (playerSelection) {
         playerSelection = playerSelection.toLowerCase();
     }
@@ -98,7 +103,7 @@ function playRound (playerSelection, computerSelection) {
     switch (playerSelection) {
         case 'rock':
             if (computerSelection === 'rock') {
-                outcomeDeclaration = 'Rock against rock, game is a tie';
+                outcomeDeclaration = 'Tie, rock ties against rock';
                 roundOutcome = 'tie';
             } else if (computerSelection === 'paper') {
                 outcomeDeclaration =  'You Lose! Rock loses to paper';
@@ -115,7 +120,7 @@ function playRound (playerSelection, computerSelection) {
                 outcomeDeclaration = 'You Win! Paper beats Rock';
                 roundOutcome = 'win';
             } else if (computerSelection === 'paper') {
-                outcomeDeclaration = 'Paper against paper, game is a tie';
+                outcomeDeclaration = 'Tie, paper ties against paper';
                 roundOutcome = 'tie';
             } else if (computerSelection === 'scissors') {
                 outcomeDeclaration = 'You Lose! Paper loses to scissors';
@@ -133,7 +138,7 @@ function playRound (playerSelection, computerSelection) {
                 outcomeDeclaration = 'You Win! Scissors beat paper';
                 roundOutcome = 'win';
             } else if (computerSelection === 'scissors') {
-                outcomeDeclaration = 'Scissors against scissors, game is a tie';
+                outcomeDeclaration = 'Tie, scissors ties against scissors';
                 roundOutcome = 'tie';
             } else {
                 outcomeDeclaration = 'Unknown outcome, please try again'
@@ -143,6 +148,26 @@ function playRound (playerSelection, computerSelection) {
             outcomeDeclaration = 'Unknown outcome, please try again'
     }
     console.log(outcomeDeclaration);
+    let div = document.querySelector('div');
+    switch (roundOutcome) {
+        case 'win':
+            scoreTally.playerWins += 1;
+            break;
+        case 'loss':
+            scoreTally.computerWins += 1;
+            break;
+        case 'tie':
+            scoreTally.ties += 1;
+            break;
+    }
+    div.textContent = outcomeDeclaration + 
+        ` - Player score: ${scoreTally.playerWins} 
+        Computer score: ${scoreTally.computerWins}
+        Ties: ${scoreTally.ties}`;
+    if (scoreTally.playerWins >= 5 || scoreTally.computerWins >= 5) {
+        alert("You've reached 5 points! Game ends after score of 5 has been reached. Please refresh the page to play again.");
+        return
+    }
     return roundOutcome
 }
 
@@ -176,3 +201,13 @@ function getComputerChoice() {
     }
     return computerChoice;
 }
+
+// Add an event listener to page buttons that call the playRound function
+// with the correct playerSelection every time a button is clicked
+
+const gameButtons = document.querySelectorAll(".gameButton");
+gameButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        playRound(button.id, getComputerChoice());
+    });
+});
